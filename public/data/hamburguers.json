@@ -1,0 +1,70 @@
+{
+  "hamburguers": [
+    {
+      "name": "L.T. SIMPLE",
+      "price": 25,
+      "ingredients": "Carne de res 130 gr, queso cheddar, tomate, cebolla dulce, ketchup y mayonesa",
+      "img": "ltsimple.webp"
+    },
+    {
+      "name": "L.T. DOBLE",
+      "price": 33,
+      "ingredients": "Doble carne de res 130 gr, queso cheddar, mozarella, tomate, cebolla dulce, ketchup y mayonesa",
+      "img": "ltdoble.webp"
+    },
+    {
+      "name": "L.T. MIXTA",
+      "price": 27,
+      "ingredients": "Carne de res 130 gr, huevo, queso cheddar, tomate, cebolla dulce, ketchup y mayonesa",
+      "img": "ltmixta.webp"
+    },
+    {
+      "name": "HAWAIANA",
+      "price": 28,
+      "ingredients": "Carne de res 130 gr, piña, queso mozarella, tomate, cebolla en rodajas, ketchup y mayonesa",
+      "img": "hawaina.webp"
+    },
+    {
+      "name": "CHEESE BURGER",
+      "price": 30,
+      "ingredients": "Carne de res 130 gr, salsa de la casa, doble queso cheddar, doble queso mozarella",
+      "img": "cheeseburguer.webp"
+    },
+    {
+      "name": "DOBLE CHEESE",
+      "price": 40,
+      "ingredients": "Doble carne de res 130 gr, salsa de la casa, triple queso cheddar y triple queso mozarella",
+      "img": "doble.webp"
+    },
+    {
+      "name": "RANCHERA",
+      "price": 31,
+      "ingredients": "Carne de res 130 gr, queso cheddar, lechuga, tomate, mayonesa y salsa especial de BBQ con tocino",
+      "img": "ranchera.webp"
+    },
+    {
+      "name": "TOCINETA",
+      "price": 32,
+      "ingredients": "Carne de res 130 gr, queso cheddar, tocino, tomate, cebolla en rodajas, pepinillos, mayonesa y salsa BBQ",
+      "img": "tocineta.webp"
+    },
+    {
+      "name": "BILLY",
+      "price": 29,
+      "ingredients": "Carne de res 130 gr, cebolla crispy, queso cheddar, tomate y salsa de la casa",
+      "img": "billy.webp"
+    },
+    {
+      "name": "CLÁSICA",
+      "price": 25,
+      "ingredients": "Carne de res 130 gr, queso cheddar, lechuga, tomate, cebolla en rodajas y salsa de la casa",
+      "img": "clasica.webp"
+    },
+    {
+      "name": "TURBO CLASIC",
+      "price": 37,
+      "ingredients": "Doble carne de res 130 gr, queso cheddar, tocino, lechuga, tomate, cebolla en rodajas y salsa de la casa",
+      "img": "turboclasic.webp"
+    }
+  ]
+}

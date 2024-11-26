@@ -1,0 +1,40 @@
+{
+  "extras": [
+    {
+      "name": "Carne extra",
+      "price": 10
+    },
+    {
+      "name": "Porción de papas",
+      "price": 10
+    },
+    {
+      "name": "Huevo frito",
+      "price": 3
+    },
+    {
+      "name": "Tocino",
+      "price": 5
+    },
+    {
+      "name": "Queso cheddar",
+      "price": 3
+    },
+    {
+      "name": "Mozarella",
+      "price": 3
+    },
+    {
+      "name": "Pepinillos",
+      "price": 3
+    },
+    {
+      "name": "Piña",
+      "price": 5
+    },
+    {
+      "name": "Salsa Barbacoa",
+      "price": 5
+    }
+  ]
+}

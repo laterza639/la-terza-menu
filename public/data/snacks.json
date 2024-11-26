@@ -1,0 +1,14 @@
+{
+  "snacks": [
+    {
+      "name": "Papas Rancheras",
+      "price": 25,
+      "img": "papasrancheras.webp"
+    },
+    {
+      "name": "Aros de Cebolla",
+      "price": 25,
+      "img": "test.webp"
+    }
+  ]
+}
