@@ -12,10 +12,10 @@ import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-menu-hamburguer',
   standalone: true,
-  imports: [CommonModule, AsyncPipe, FormsModule, RouterLink],
+  imports: [CommonModule, AsyncPipe, FormsModule,],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: /*html*/
-  `
+    `
   <div class="p-4 max-w-md mx-auto pb-24">
     <!-- Product List -->
     <div
@@ -228,7 +228,7 @@ export default class MenuHamburguerComponent {
     const urlSegments = this.router.url.split('/');
     // Get the first segment after the initial slash
     const firstSegment = urlSegments[1] || '';
-    this.router.navigate(['/cart'], { 
+    this.router.navigate(['/cart'], {
       queryParams: { source: firstSegment }
     });
   }
@@ -270,7 +270,7 @@ export default class MenuHamburguerComponent {
 
   addToCart() {
     if (!this.selectedProduct) return;
-  
+
     combineLatest([this.extras$])
       .pipe(
         map(([extras]) => {
@@ -296,7 +296,7 @@ export default class MenuHamburguerComponent {
           extras: extras.length > 0 ? extras : undefined,
           type: 'hamburguer'
         });
-        
+
         this.closeProductDetail();
       });
   }
