@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Hamburguer } from '../../../../interfaces/hamburguer.interface';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable, startWith } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -17,8 +17,14 @@ import { Router, RouterLink } from '@angular/router';
   template: /*html*/
     `
   <div class="p-4 max-w-md mx-auto pb-24">
+    <!-- Loading State -->
+    <div *ngIf="(loading$ | async)" class="flex justify-center items-center min-h-[50vh]">
+      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-400"></div>
+    </div>
+
     <!-- Product List -->
-    <div
+    <div *ngIf="!(loading$ | async)">
+        <div
       *ngFor="let product of products$ | async"
       (click)="openProductDetail(product)"
       class="rounded-3xl bg-white p-6 shadow-md hover:shadow-xl transition-shadow cursor-pointer mb-4"
@@ -49,6 +55,7 @@ import { Router, RouterLink } from '@angular/router';
           </svg>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Product Detail Modal -->
@@ -211,13 +218,21 @@ export default class MenuHamburguerComponent {
   private productService = inject(ProductService);
   public cartService = inject(CartService);
 
+  loading$ = combineLatest([
+    this.productService.getHamburguers(),
+    this.productService.getExtras()
+  ]).pipe(
+    map(() => false),
+    startWith(true)
+  );
+
   products$: Observable<Hamburguer[]> = this.productService
     .getHamburguers()
     .pipe(map((response) => response.hamburguers));
 
   extras$: Observable<Extra[]> = this.productService
     .getExtras()
-    .pipe(map((response) => response.extras));;
+    .pipe(map((response) => response.extras));
 
   selectedProduct: Hamburguer | null = null;
   quantity: number = 1;
