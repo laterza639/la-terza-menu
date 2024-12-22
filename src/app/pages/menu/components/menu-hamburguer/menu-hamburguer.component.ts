@@ -7,12 +7,12 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Extra } from '../../../../interfaces/extra.interface';
 import { CartService } from '../../services/cart.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-hamburguer',
   standalone: true,
-  imports: [CommonModule, AsyncPipe, FormsModule,],
+  imports: [CommonModule, AsyncPipe, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: /*html*/
     `
@@ -57,7 +57,6 @@ import { Router, RouterLink } from '@angular/router';
       </div>
     </div>
     </div>
-
     <!-- Product Detail Modal -->
     <div
       *ngIf="selectedProduct"

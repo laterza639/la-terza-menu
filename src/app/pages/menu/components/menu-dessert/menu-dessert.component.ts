@@ -1,47 +1,55 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { combineLatest, startWith } from 'rxjs';
 import { map, Observable } from 'rxjs';
 import { Dessert } from '../../../../interfaces/dessert.interface';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-dessert',
   standalone: true,
-  imports: [CommonModule, AsyncPipe, FormsModule, RouterLink],
+  imports: [CommonModule, AsyncPipe, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: /*html*/
   `
   <div class="p-4 max-w-md mx-auto pb-24">
+    <!-- Loading State -->
+    <div *ngIf="(loading$ | async)" class="flex justify-center items-center min-h-[50vh]">
+      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-400"></div>
+    </div>
+
     <!-- Product List -->
-    <div
-      *ngFor="let product of products$ | async"
-      (click)="openProductDetail(product)"
-      class="rounded-3xl bg-white p-6 shadow-md hover:shadow-xl transition-shadow cursor-pointer mb-4"
-    >
-      <div class="flex justify-between items-start">
-        <div>
-          <h3 class="text-sm font-semibold">
-            {{ product.name }} ({{ product.price }} Bs.)
-          </h3>
-        </div>
-        <div class="text-gray-400">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
+    <div *ngIf="!(loading$ | async)">
+      <div
+        *ngFor="let product of products$ | async"
+        (click)="openProductDetail(product)"
+        class="rounded-3xl bg-white p-6 shadow-md hover:shadow-xl transition-shadow cursor-pointer mb-4"
+      >
+        <div class="flex justify-between items-start">
+          <div>
+            <h3 class="text-sm font-semibold">
+              {{ product.name }} ({{ product.price }} Bs.)
+            </h3>
+          </div>
+          <div class="text-gray-400">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -162,6 +170,14 @@ export default class MenuDessertComponent {
   public cartService = inject(CartService);
   private router = inject(Router);
 
+  loading$ = combineLatest([
+    this.productService.getHamburguers(),
+    this.productService.getExtras()
+  ]).pipe(
+    map(() => false),
+    startWith(true)
+  );
+
   products$: Observable<Dessert[]> = this.productService.getDessert()
   .pipe(
     map(response => response.desserts)
@@ -174,7 +190,7 @@ export default class MenuDessertComponent {
     const urlSegments = this.router.url.split('/');
     // Get the first segment after the initial slash
     const firstSegment = urlSegments[1] || '';
-    this.router.navigate(['/cart'], { 
+    this.router.navigate(['/cart'], {
       queryParams: { source: firstSegment }
     });
   }
@@ -198,7 +214,7 @@ export default class MenuDessertComponent {
 
   addToCart() {
     if (!this.selectedProduct) return;
-  
+
     this.cartService.addToCart({
       id: '', // Will be set by service
       name: this.selectedProduct.name,
@@ -206,7 +222,7 @@ export default class MenuDessertComponent {
       quantity: this.quantity,
       type: 'dessert' // or 'snack' or 'dessert'
     });
-  
+
     this.closeProductDetail();
   }
 }

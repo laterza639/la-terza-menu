@@ -1,22 +1,29 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ProductService } from '../../services/product.service';
+import { combineLatest, startWith } from 'rxjs';
 import { map, Observable } from 'rxjs';
 import { Drink } from '../../../../interfaces/drink.interface';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-drinks',
   standalone: true,
-  imports: [CommonModule, AsyncPipe, FormsModule, RouterLink],
+  imports: [CommonModule, AsyncPipe, FormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: /*html*/
   `
   <div class="p-4 max-w-md mx-auto pb-24">
+    <!-- Loading State -->
+    <div *ngIf="(loading$ | async)" class="flex justify-center items-center min-h-[50vh]">
+      <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-yellow-400"></div>
+    </div>
+
     <!-- Product List -->
-    <div
+    <div *ngIf="!(loading$ | async)">
+        <div
       *ngFor="let product of products$ | async"
       (click)="openProductDetail(product)"
       class="rounded-3xl bg-white p-6 shadow-md hover:shadow-xl transition-shadow cursor-pointer mb-4"
@@ -47,6 +54,7 @@ import { Router, RouterLink } from '@angular/router';
           </svg>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Product Detail Modal -->
@@ -166,6 +174,14 @@ export default class MenuDrinksComponent {
   public cartService = inject(CartService);
   private router = inject(Router);
 
+  loading$ = combineLatest([
+    this.productService.getHamburguers(),
+    this.productService.getExtras()
+  ]).pipe(
+    map(() => false),
+    startWith(true)
+  );
+
   products$: Observable<Drink[]> = this.productService.getDrinks()
   .pipe(
     map(response => response.drinks)
@@ -178,7 +194,7 @@ export default class MenuDrinksComponent {
     const urlSegments = this.router.url.split('/');
     // Get the first segment after the initial slash
     const firstSegment = urlSegments[1] || '';
-    this.router.navigate(['/cart'], { 
+    this.router.navigate(['/cart'], {
       queryParams: { source: firstSegment }
     });
   }
@@ -202,7 +218,7 @@ export default class MenuDrinksComponent {
 
   addToCart() {
     if (!this.selectedProduct) return;
-  
+
     this.cartService.addToCart({
       id: '', // Will be set by service
       name: this.selectedProduct.name,
@@ -210,7 +226,7 @@ export default class MenuDrinksComponent {
       quantity: this.quantity,
       type: 'drink' // or 'snack' or 'dessert'
     });
-  
+
     this.closeProductDetail();
   }
 }
