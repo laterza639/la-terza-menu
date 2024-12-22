@@ -337,7 +337,7 @@ export default class CartComponent implements OnDestroy {
         if (item.extras && item.extras.length > 0) {
           const extrasText = item.extras
             .filter(extra => extra.quantity > 0)
-            .map(extra => `        (extra) ${extra.quantity}× ${extra.name} (+${extra.price} Bs.)`)
+            .map(extra => `        >> ${extra.quantity}× ${extra.name} (+${extra.price} Bs.)`)
             .join('\n');
           if (extrasText) {
             itemText += '\n' + extrasText;
