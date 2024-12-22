@@ -11,7 +11,7 @@ import { RouterLink } from '@angular/router';
       <!-- Logo Section -->
       <div class="flex-1 flex items-center justify-center max-h-[40vh]">
         <div class="w-48 sm:w-60">
-          <img src="logo.png" alt="logo-img" class="w-full h-auto">
+          <img src="logo.webp" alt="logo-img" class="w-full h-auto">
         </div>
       </div>
 
