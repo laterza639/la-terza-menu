@@ -381,7 +381,7 @@ export default class CartComponent implements OnDestroy {
 
       *RESUMEN:*
       Subtotal: ${this.cartService.subtotal()} Bs.
-      Descuento (10%): -${this.cartService.discount().toFixed(2)} Bs.
+      Descuento Web (10%): -${this.cartService.discount().toFixed(2)} Bs.
       *Total: ${this.cartService.total()} Bs.*
 
       *ENTREGA:*
