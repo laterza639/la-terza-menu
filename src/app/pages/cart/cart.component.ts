@@ -15,7 +15,7 @@ import * as L from 'leaflet';
   <div class="p-4 max-w-md mx-auto">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold">Carrito <span class="text-2xl font-bold text-yellow-400">Terza</span></h1>
-      <a [routerLink]="['/headquarters/menu/hamburguer']" 
+      <a [routerLink]="['/headquarters/menu/hamburguer']"
           class="bg-yellow-400 w-8 h-8 rounded-lg flex items-center justify-center">
         <span class="text-xl font-thin">×</span>
       </a>
@@ -23,7 +23,7 @@ import * as L from 'leaflet';
 
     <!-- Cart Items -->
     <div class="space-y-4 mb-6">
-      <div *ngFor="let item of cartService.cartItems()" 
+      <div *ngFor="let item of cartService.cartItems()"
             class="bg-white p-4 rounded-xl shadow">
         <div class="flex justify-between items-start">
           <div>
@@ -87,16 +87,16 @@ import * as L from 'leaflet';
           <label class="block mb-1 font-semibold">* Pago</label>
           <div class="flex justify-between">
             <div>
-              <input type="radio" 
+              <input type="radio"
                       formControlName="payment"
-                      value="cash" 
+                      value="cash"
                       id="cash">
               <label for="cash" class="ml-2">Efectivo</label>
             </div>
             <div>
-              <input type="radio" 
+              <input type="radio"
                       formControlName="payment"
-                      value="qr" 
+                      value="qr"
                       id="qr">
               <label for="qr" class="ml-2">QR</label>
             </div>
@@ -104,17 +104,17 @@ import * as L from 'leaflet';
 
           <div class="mt-6 flex flex-col items-center" *ngIf="checkoutForm.get('payment')?.value === 'qr'">
             <img src="qrexample.png" alt="qr" class="mb-4">
-            <a href="qrexample.png" 
+            <a href="qrexample.png"
                download="qr-payment.png"
                class="bg-yellow-400 text-black px-4 py-2 rounded-full flex items-center gap-2 hover:bg-yellow-500 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" 
-                   class="h-5 w-5" 
-                   fill="none" 
-                   viewBox="0 0 24 24" 
+              <svg xmlns="http://www.w3.org/2000/svg"
+                   class="h-5 w-5"
+                   fill="none"
+                   viewBox="0 0 24 24"
                    stroke="currentColor">
-                <path stroke-linecap="round" 
-                      stroke-linejoin="round" 
-                      stroke-width="2" 
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
                       d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
               </svg>
               <span>Descargar QR</span>
@@ -125,14 +125,14 @@ import * as L from 'leaflet';
 
         <div class="mt-4">
           <label class="block mb-1 font-semibold mt-8">* Nombre Completo</label>
-          <input type="text" 
+          <input type="text"
                   formControlName="fullName"
                   class="w-full p-2 border rounded-lg">
         </div>
 
         <div>
           <label class="block mb-1 font-semibold">* Teléfono</label>
-          <input type="tel" 
+          <input type="tel"
                   formControlName="phone"
                   class="w-full p-2 border rounded-lg">
         </div>
@@ -141,16 +141,16 @@ import * as L from 'leaflet';
           <label class="block mb-1 font-semibold">* Delivery</label>
           <div class="flex justify-between">
             <div>
-              <input type="radio" 
+              <input type="radio"
                       formControlName="deliveryType"
-                      value="pickup" 
+                      value="pickup"
                       id="pickup">
               <label for="pickup" class="ml-2">Recojo en el local</label>
             </div>
             <div>
-              <input type="radio" 
+              <input type="radio"
                       formControlName="deliveryType"
-                      value="delivery" 
+                      value="delivery"
                       id="delivery">
               <label for="delivery" class="ml-2">Delivery</label>
             </div>
@@ -158,12 +158,12 @@ import * as L from 'leaflet';
 
           <div class="mt-6" *ngIf="checkoutForm.get('deliveryType')?.value === 'delivery'">
             <label class="block mb-1 font-semibold">* Dirección</label>
-            <input type="text" 
+            <input type="text"
                     formControlName="address"
                     class="w-full p-2 border rounded-lg">
-          
+
             <label class="block mb-1 mt-4 font-semibold">Referencia de la vivienda (Opcional)</label>
-            <input type="text" 
+            <input type="text"
                     formControlName="reference"
                     class="w-full p-2 border rounded-lg">
           </div>
@@ -196,7 +196,7 @@ export default class CartComponent implements OnDestroy {
 
   private map!: L.Map;
   private marker!: L.Marker;
-  
+
   // Default coordinates (Santa Cruz de la Sierra)
   private defaultPosition = {
     lat: -17.783336,
@@ -224,7 +224,7 @@ export default class CartComponent implements OnDestroy {
     this.checkoutForm.get('deliveryType')?.valueChanges.subscribe(value => {
       const addressControl = this.checkoutForm.get('address');
       const locationGroup = this.checkoutForm.get('location');
-    
+
       if (value === 'delivery') {
         addressControl?.setValidators(Validators.required);
         locationGroup?.enable();
@@ -328,27 +328,27 @@ export default class CartComponent implements OnDestroy {
   onSubmit() {
     if (this.checkoutForm.valid && this.cartService.cartItems().length > 0) {
       const whatsappNumber = this.sourceSegment === 'headquarters' ? '62736621' : '65258797';
-    
+
       // Format items details
       const itemsDetails = this.cartService.cartItems().map(item => {
         let itemText = `• ${item.quantity}× ${item.name} (${item.price} Bs.)`;
-      
+
         // Add extras if they exist
         if (item.extras && item.extras.length > 0) {
           const extrasText = item.extras
             .filter(extra => extra.quantity > 0)
-            .map(extra => `   - ${extra.quantity}× ${extra.name} (+${extra.price} Bs.)`)
+            .map(extra => `        (extra) ${extra.quantity}× ${extra.name} (+${extra.price} Bs.)`)
             .join('\n');
           if (extrasText) {
             itemText += '\n' + extrasText;
           }
         }
-      
+
         // Add notes if they exist
         if (item.notes) {
-          itemText += `\n   Nota: ${item.notes}`;
+          itemText += `\n       Nota: ${item.notes}`;
         }
-      
+
         return itemText;
       }).join('\n');
 
@@ -356,7 +356,7 @@ export default class CartComponent implements OnDestroy {
       const isDelivery = this.checkoutForm.get('deliveryType')?.value === 'delivery';
       const locationGroup = this.checkoutForm.get('location');
       let mapLink = '';
-    
+
       if (isDelivery && locationGroup) {
         const lat = locationGroup.get('lat')?.value;
         const lng = locationGroup.get('lng')?.value;
@@ -369,14 +369,14 @@ export default class CartComponent implements OnDestroy {
       const paymentMethod = this.checkoutForm.get('payment')?.value === 'cash' ? 'Efectivo' : 'QR';
 
       // Construct the message
-      const message = 
+      const message =
       `
       *NUEVO PEDIDO*
       *Cliente:* ${this.checkoutForm.get('fullName')?.value}
       *Teléfono:* ${this.checkoutForm.get('phone')?.value}
       *Método de Pago:* ${paymentMethod}
 
-      *PRODUCTOS:*
+      *PRODUCTOS (Precios Unitarios):*
       ${itemsDetails}
 
       *RESUMEN:*
@@ -397,7 +397,7 @@ export default class CartComponent implements OnDestroy {
 
       // Open WhatsApp in a new tab
       window.open(whatsappUrl, '_blank');
-    
+
       // Clear cart and redirect
       this.cartService.clearCart();
       this.router.navigate(['/headquarters/menu/hamburguer']);
