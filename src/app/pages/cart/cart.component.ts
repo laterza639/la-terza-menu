@@ -327,7 +327,7 @@ export default class CartComponent implements OnDestroy {
 
   onSubmit() {
     if (this.checkoutForm.valid && this.cartService.cartItems().length > 0) {
-      const whatsappNumber = this.sourceSegment === 'headquarters' ? '62736621' : '65258797';
+      const whatsappNumber = this.sourceSegment === 'headquarters' ? '78668339' : '63930001';
 
       // Format items details
       const itemsDetails = this.cartService.cartItems().map(item => {
