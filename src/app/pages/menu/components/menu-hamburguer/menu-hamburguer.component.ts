@@ -97,7 +97,7 @@ import { Router } from '@angular/router';
         <div class="flex-1 overflow-y-auto">
           <div class="p-6">
             <h2 class="text-xl font-bold">
-              {{ selectedProduct.name }} ({{ selectedProduct.price }} Bs.)
+              {{ selectedProduct.name }} (Bs. {{ selectedProduct.price }})
             </h2>
             <p class="text-gray-600 mt-2">{{ selectedProduct.ingredients }}</p>
 
@@ -127,7 +127,7 @@ import { Router } from '@angular/router';
                   class="flex items-center justify-between"
                 >
                   <div class="flex items-center">
-                    <span class="text-sm">{{ extra.name }} (+{{ extra.price }} Bs.)</span>
+                    <span class="text-sm">{{ extra.name }} (+ Bs. {{ extra.price }})</span>
                   </div>
                   <div class="flex items-center gap-2">
                       <button
