@@ -32,7 +32,7 @@ import { Router } from '@angular/router';
       <div class="flex justify-between items-start">
         <div>
           <h3 class="text-sm font-semibold">
-            {{ product.name }} ({{ product.price }} Bs.)
+            {{ product.name }} (Bs. {{ product.price }})
           </h3>
           <p class="text-gray-600 mt-1 font-light text-xs">
             {{ product.ingredients }}

@@ -31,7 +31,7 @@ import { Router } from '@angular/router';
       <div class="flex justify-between items-start">
         <div>
           <h3 class="text-sm font-semibold">
-            {{ product.name }} ({{ product.price }} Bs.)
+            {{ product.name }} (Bs. {{ product.price }})
           </h3>
           <p class="text-gray-600 mt-1 font-light text-xs">
             {{ product.size }}
@@ -97,7 +97,7 @@ import { Router } from '@angular/router';
         <div class="flex-1 overflow-y-auto">
           <div class="p-6">
             <h2 class="text-xl font-bold">
-              {{ selectedProduct.name }} ({{ selectedProduct.price }} Bs.)
+              {{ selectedProduct.name }} (Bs. {{ selectedProduct.price }})
             </h2>
             <p class="text-gray-600 mt-2">{{ selectedProduct.size }}</p>
 

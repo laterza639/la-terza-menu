@@ -31,7 +31,7 @@ import * as L from 'leaflet';
             <div *ngIf="item.extras?.length" class="text-sm text-gray-600 mt-1">
               <div *ngFor="let extra of item.extras">
                 <span *ngIf="extra.quantity > 0">
-                  {{ extra.quantity }}× {{ extra.name }} (+{{ extra.price }} Bs.)
+                  {{ extra.quantity }}× {{ extra.name }} (+ Bs. {{ extra.price }})
                 </span>
               </div>
             </div>
@@ -66,15 +66,15 @@ import * as L from 'leaflet';
     <div class="bg-white p-4 rounded-xl shadow mb-6">
       <div class="flex justify-between mb-2">
         <span>SUBTOTAL:</span>
-        <span>{{ cartService.subtotal() }} Bs.</span>
+        <span>Bs. {{ cartService.subtotal() }}</span>
       </div>
       <div class="flex justify-between text-green-600 mb-2">
         <span>Descuento pedido web 10% OFF</span>
-        <span>-{{ cartService.discount().toFixed(2) }} Bs.</span>
+        <span>- Bs. {{ cartService.discount().toFixed(2) }}</span>
       </div>
       <div class="flex justify-between font-bold">
         <span>TOTAL:</span>
-        <span>{{ cartService.total() }} Bs.</span>
+        <span>Bs. {{ cartService.total() }}</span>
       </div>
     </div>
 
@@ -331,13 +331,13 @@ export default class CartComponent implements OnDestroy {
 
       // Format items details
       const itemsDetails = this.cartService.cartItems().map(item => {
-        let itemText = `• ${item.quantity}× ${item.name} (${item.price} Bs.)`;
+        let itemText = `• ${item.quantity}× ${item.name} (Bs. ${item.price})`;
 
         // Add extras if they exist
         if (item.extras && item.extras.length > 0) {
           const extrasText = item.extras
             .filter(extra => extra.quantity > 0)
-            .map(extra => `        >> ${extra.quantity}× ${extra.name} (+${extra.price} Bs.)`)
+            .map(extra => `        >> ${extra.quantity}× ${extra.name} (+ Bs. ${extra.price})`)
             .join('\n');
           if (extrasText) {
             itemText += '\n' + extrasText;
@@ -380,9 +380,9 @@ export default class CartComponent implements OnDestroy {
       ${itemsDetails}
 
       *RESUMEN:*
-      Subtotal: ${this.cartService.subtotal()} Bs.
-      Descuento Web (10%): -${this.cartService.discount().toFixed(2)} Bs.
-      *Total: ${this.cartService.total()} Bs.*
+      Subtotal: Bs. ${this.cartService.subtotal()}
+      Descuento Web (10%): - Bs. ${this.cartService.discount().toFixed(2)}
+      *Total: Bs. ${this.cartService.total()}*
 
       *ENTREGA:*
       Tipo: ${isDelivery ? 'Delivery' : 'Recojo en Local'}${isDelivery ? `
